@@ -65,11 +65,11 @@ bot.on('guildMemberUpdate', (oldMember, newMember) =>{
     var regex = /\([a-zA-Z]+\) [a-zA-Z]+/;
     var correctNickname = regex.test(newMember.nickname);
     if(correctNickname){
-      userLogsChannel.send(`${newMember.nickname} has changed his name and has now received the "Soldaat" role.`)
+      userLogsChannel.send(`${oldMember.nickname} has changed his name to ${newMember.nickname} and has now received the "Soldaat" role.`)
       newMember.addRole(soldaatRole);
     }
     else{
-      userLogsChannel.send(`${newMember.nickname} has changed his name and has now lost the "Soldaat" role. Changed his name to something thats not valid.`)
+      userLogsChannel.send(`${oldMember.nickname} has changed his name to ${newMember.nickname} and has now lost the "Soldaat" role. Changed his name to something thats not valid.`)
       newMember.removeRole(soldaatRole);
     }
   }
