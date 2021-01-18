@@ -10,7 +10,30 @@ bot.on('ready', () => {
 });
 
 bot.on('message', msg => {
-  
+  if(msg.content.startsWith('!russianRoulette')){
+      msg.channel.send("Lets see whose gonna die.")
+      const list = bot.guilds.get("706146210876096645");
+      list.members.random();
+
+      setTimeout(() => {
+        msg.channel.send("1...")
+      }, 1000);
+
+      setTimeout(() => {
+        msg.channel.send("2...")
+      }, 1000);
+
+      setTimeout(() => {
+        msg.channel.send("3...")
+      }, 1000);
+
+      setTimeout(()=> {
+        msg.channel.send(`${list.members.random().nickname} haha you're dead :D`);
+      })
+
+    
+  }
+
   if(msg.content.startsWith('!alive')){
     msg.channel.send("Yes im alive what about you :D?");
   }
