@@ -21,15 +21,15 @@ bot.on('message', msg => {
 
       setTimeout(() => {
         msg.channel.send("2...")
-      }, 1000);
+      }, 2000);
 
       setTimeout(() => {
         msg.channel.send("3...")
-      }, 1000);
+      }, 3000);
 
       setTimeout(()=> {
         msg.channel.send(`${list.members.random().nickname} haha you're dead :D`);
-      })
+      }, 4000)
 
     
   }
