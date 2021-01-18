@@ -85,13 +85,19 @@ bot.on('guildMemberUpdate', (oldMember, newMember) =>{
   allowedGiveaways.forEach(value => {
     if(newMember.highestRole.name === value){
       found = true;
-      newMember.addRole(giveawayRole);
+      //if giveaways role isnt found add it.
+      if(!newMember.roles.find(r => r.name =="Giveaways")){
+        newMember.addRole(giveawayRole);
+      }
       userLogsChannel.send(`${newMember.nickname} has received the giveaway role.`);
     }
   })
 
   if(!found){
-    newMember.removeRole(giveawayRole);
+    //if giveaways role is found
+    if(newMember.roles.find(r => r.name =="Giveaways")){
+      newMember.removeRole(giveawayRole);
+    }
     userLogsChannel.send(`${newMember.nickname} has lost the giveaway role.`);
   }
 })
