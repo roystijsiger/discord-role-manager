@@ -29,7 +29,7 @@ bot.on('message', msg => {
       setTimeout(()=> {
         //msg.channel.send(`${list.members.random().nickname} haha you're dead :D`);
         let members = Array.from(list.members);
-        return members[Math.floor(Math.random() * members.length)];
+        return members[Math.floor(Math.random() * members.length)].nickname;
       }, 4000)
 
     
