@@ -10,6 +10,11 @@ bot.on('ready', () => {
 });
 
 bot.on('message', msg => {
+  
+  if(msg.content.startsWith('!alive')){
+    msg.channel.send("Yes im alive what about you :D?");
+  }
+
   if(msg.content.startsWith('!checkPerms')){
     var allowedToRunCommand= ['Chief Admin'];
     console.log(msg.member.highestRole);
@@ -52,24 +57,24 @@ bot.on('message', msg => {
 });
 
 bot.on('guildMemberUpdate', (oldMember, newMember) =>{
+  
+  const userLogsChannel = bot.channels.find(c => c.name === "user-logs");
   var soldaatRole = newMember.guild.roles.find(role => role.name === "Soldaat");
   if(oldMember.nickname !== newMember.nickname){
     //todo: LETS ADD A REGEX TO SEE IF SOMEONE CHANGED HIS NAME ACCORDING To (NAME) NICKNAME :) POG
     var regex = /\([a-zA-Z]+\) [a-zA-Z]+/;
     var correctNickname = regex.test(newMember.nickname);
     if(correctNickname){
-      console.log('Nickname has been changed to a correct format.');
+      userLogsChannel.send(`${newMember.nickname} has changed his name and has now received the "Soldaat" role.`)
       newMember.addRole(soldaatRole);
     }
     else{
+      userLogsChannel.send(`${newMember.nickname} has changed his name and has now lost the "Soldaat" role. Changed his name to something thats not valid.`)
       newMember.removeRole(soldaatRole);
     }
-    console.log(`changed nickname from ${oldMember.nickname} to ${newMember.nickname}`);
   }
-  
-  //console.log(oldMember.highestRole);
-  
 
+  
   var allowedGiveaways = ['Kolonel - Senior Admin','Chief Admin','Sherpa','Luitenant','Sergeant','Korporaal'];
   //check if its in one of the allowed gievaways
   var found = false;
@@ -81,11 +86,13 @@ bot.on('guildMemberUpdate', (oldMember, newMember) =>{
     if(newMember.highestRole.name === value){
       found = true;
       newMember.addRole(giveawayRole);
+      userLogsChannel.send(`${newMember.nickname} has received the giveaway role.`);
     }
   })
 
   if(!found){
     newMember.removeRole(giveawayRole);
+    userLogsChannel.send(`${newMember.nickname} has lost the giveaway role.`);
   }
 })
 
